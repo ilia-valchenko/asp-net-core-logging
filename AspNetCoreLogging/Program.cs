@@ -1,5 +1,10 @@
 using AspNetCoreLogging.Middlewares;
 using AspNetCoreLogging.Services;
+using NLog;
+using NLog.Web;
+
+var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
+logger.Debug("init main");
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,15 +15,19 @@ builder.Services.AddSwaggerGen();
 
 // Logging
 builder.Logging.ClearProviders();
-builder.Logging.AddConsole();
+builder.Host.UseNLog();
+//builder.Logging.AddConsole();
 
 builder.Services.AddScoped<IWeatherForecastService, WeatherForecastService>();
 
 var app = builder.Build();
 
-using var loggerFactory = LoggerFactory.Create(loggingBuilder => loggingBuilder
-    .SetMinimumLevel(LogLevel.Trace)
-    .AddConsole());
+// The default logging
+//using var loggerFactory = LoggerFactory.Create(loggingBuilder => loggingBuilder
+//    .SetMinimumLevel(LogLevel.Trace)
+//    .AddConsole());
+
+using var loggerFactory = LoggerFactory.Create(loggingBuilder => { });
 
 if (app.Environment.IsDevelopment())
 {
