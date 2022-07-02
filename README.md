@@ -3,4 +3,4 @@
 - As an alternative approach we can implement `IExceptionFilter` interface.
 
 ## Note
-IMPORTANT! The order is important! It won't work if you will put `app.ConfigureGlobalExceptionLogging(...)` after UseEndpoints.
+IMPORTANT! The order is important! It won't work if you will put `app.ConfigureGlobalExceptionLogging(...)` after `app.UseEndpoints(...)`.
