@@ -3,6 +3,9 @@ using AspNetCoreLogging.Services;
 using NLog;
 using NLog.Web;
 
+// When creating a NLog Logger-object then one must provide a logger-name like NLog.LogManager.GetLogger("blah blah").
+// The logger-name can also be extracted from class-context by using NLog.LogManager.GetCurrentClassLogger()
+// where logger-name becomes "NameSpace.ClassName".
 var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
 logger.Debug("init main");
 
