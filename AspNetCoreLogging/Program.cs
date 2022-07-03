@@ -3,11 +3,13 @@ using AspNetCoreLogging.Services;
 using NLog;
 using NLog.Web;
 
-// When creating a NLog Logger-object then one must provide a logger-name like NLog.LogManager.GetLogger("blah blah").
-// The logger-name can also be extracted from class-context by using NLog.LogManager.GetCurrentClassLogger()
-// where logger-name becomes "NameSpace.ClassName".
-var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
-logger.Debug("init main");
+#region NLog
+//// When creating a NLog Logger-object then one must provide a logger-name like NLog.LogManager.GetLogger("blah blah").
+//// The logger-name can also be extracted from class-context by using NLog.LogManager.GetCurrentClassLogger()
+//// where logger-name becomes "NameSpace.ClassName".
+//var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
+//logger.Debug("init main"); 
+#endregion
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,17 +20,20 @@ builder.Services.AddSwaggerGen();
 
 // Logging
 builder.Logging.ClearProviders();
-builder.Host.UseNLog();
+builder.Logging.AddLog4Net();
+//builder.Host.UseNLog();
 //builder.Logging.AddConsole();
 
 builder.Services.AddScoped<IWeatherForecastService, WeatherForecastService>();
 
 var app = builder.Build();
 
-// The default logging
+#region Default logging
+//// The default logging
 //using var loggerFactory = LoggerFactory.Create(loggingBuilder => loggingBuilder
 //    .SetMinimumLevel(LogLevel.Trace)
-//    .AddConsole());
+//    .AddConsole()); 
+#endregion
 
 using var loggerFactory = LoggerFactory.Create(loggingBuilder => { });
 

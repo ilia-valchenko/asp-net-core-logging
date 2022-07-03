@@ -6,4 +6,5 @@
 IMPORTANT! The order is important! It won't work if you will put `app.ConfigureGlobalExceptionLogging(...)` after `app.UseEndpoints(...)`.
 
 ## Details
-The `appsettings.Default.json` contains configuration for different built-in log providers.
+ - The `appsettings.Default.json` contains configuration for different built-in log providers.
+ - The Log4Net log file can be found in `bin\Debug\net6.0`.
